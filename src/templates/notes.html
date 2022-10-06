@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="icon" href="{{url_for('static', filename='favicon.ico')}}" type="image/x-icon" />
+        <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+
+        <title>Personal assistant</title>
+    </head>
+<body>
+<div class="wrapper">
+    <section class="manage-buttons">
+        <a class="top-button-add" href="/add_info">Додати інформацію</a>
+        <!--<a class="top-button-add" href="#">Додати нотатки</a> -->
+        <a class="top-button-edit" href="edit_info">Редагувати інформацію</a>
+        <a class="top-button-exit" href="/start">Назад</a>
+    </section>
+
+    <section>
+        <div class="note-name">
+            <text>Назва:</text>
+            <ul></ul>
+            <text>День 1</text>
+        </div>
+        <div class="note-description">
+            <text>Зміст:</text>
+            <ul></ul>
+            <text>Сьогодні я почав займатись спортом</text>
+        </div>
+        <div class="note-tags">
+            <text>Теги:</text>
+            <ul style="list-style-type:disc">
+                <li>Первый тег</li>
+                <li>Второй тег</li>
+            </ul>
+        </div>
+    </section>
+</div>
+</body>
+</html>

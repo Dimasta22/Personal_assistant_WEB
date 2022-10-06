@@ -4,74 +4,101 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+        <link rel="icon" href="{{url_for('static', filename='favicon.ico')}}" type="image/x-icon" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="static/style.css">
 
         <title>Personal assistant</title>
     </head>
 <body>
     <div class="wrapper">
         <section class="manage-buttons">
-            <button class="top-button-exit">Написати нотаток</button>
-            <button class="top-button-add">Додати інформацію</button>
-            <button class="top-button-edit">Перегляд сторінки</button>
-            <button class="top-button-exit">Вийти</button>
+            <a class="top-button-add" href="add_info">Додати інформацію</a>
+            <a class="top-button-add" href="#">Додати нотатки</a>
+            <a class="top-button-edit" href="page">Перегляд сторінки</a>
+            <a class="top-button-exit" href="#">Вийти</a>
         </section>
         <section class="contact-form">
-            <img src="my-photo.jpg" alt="user-foto" class="user-img">
             <div>
-                <button>Редагувати</button>
-                <button>Видалити</button>
-            </div>
+                <img src="my-photo.jpg" alt="user-foto" class="user-img">
+                <div>
+                <a class="button-edit" href="edit_data">Редагувати</a>
+                </div>
+                <form method="post">
+                    <button class="top-button-add">Видалити</button>
+                </form>
 
+            </div>
             <div class="address">
                 <text>Адресс:</text>
                 <ul style="list-style-type:disc">
-                    <li>Первый адрес</li>
-                    <button>Редагувати</button>
-                    <button>Видалити</button>
+                    {% for address in addresses %}
+                        <li>{{address}}</li>
+                    <div class="buttons-remote">
+                        <a class="button-edit">Редагувати</a>
+                        <a class="button-edit">Видалити</a>
+                    </div>
+                    {% endfor %}
                 </ul>
             </div>
             <div class="phones">
                 <text>Телефон(и):</text>
                 <ul style="list-style-type:disc">
-                    <li>Первый телефон</li>
-                    <button>Редагувати</button>
-                    <button>Видалити</button>
+                    {% for phone in phones %}
+                    <li>{{phone}}</li>
+                    <div class="buttons-remote">
+                        <a class="button-edit">Редагувати</a>
+                        <a class="button-edit">Видалити</a>
+                    </div>
+                    {% endfor %}
                 </ul>
             </div>
             <div class="emails">
                 <text>Email:</text>
                 <ul style="list-style-type:disc">
-                    <li>Первый email</li>
-                    <button>Редагувати</button>
-                    <button>Видалити</button>
+                    {% for email in emails %}
+                    <li>{{email}}</li>
+                    <div class="buttons-remote">
+                        <a class="button-edit">Редагувати</a>
+                        <a class="button-edit">Видалити</a>
+                    </div>
+                    {% endfor %}
                 </ul>
             </div>
             <div class="birthday">
                 <text>День народження:</text>
-                <ul></ul>
-                <text>22.01.2000</text>
-                <button>Редагувати</button>
-                <button>Видалити</button>
+                <div>
+
+                    <span>{{birthday}}</span>
+                </div>
+                <div class="buttons-remote">
+                    <a class="button-edit">Редагувати</a>
+                    <a class="button-edit">Видалити</a>
+                </div>
             </div>
         </section>
         <section class="notes">
             <div class="name">
                 <text>Им'я:</text>
-                <ul></ul>
-                <text>Діма</text>
-                <button>Редагувати</button>
+                <ul>
+                    <text>{{first_name}}</text>
+                </ul>
+                <ul>
+                    <a>Редагувати</a>
+                    <a>Видалити</a>
+                </ul>
             </div>
             <div class="last-name">
                 <text>Прізвище:</text>
-                <ul></ul>
-                <text>Сердюк</text>
-                <ul><button>Редагувати</button></ul>
+                <ul>
+                    <text>{{last_name}}</text>
+                </ul>
+                <ul>
+                    <button>Редагувати</button>
+                </ul>
             </div>
             <div class="note-name">
                 <text>Назва:</text>

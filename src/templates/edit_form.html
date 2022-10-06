@@ -2,7 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Add new tag</title>
+    <title>Add new data</title>
+    <link rel="icon" href="{{url_for('static', filename='favicon.ico')}}" type="image/x-icon" />
     <link
       rel="stylesheet"
       href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"
@@ -14,13 +15,13 @@
         style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 30px"
       >
         <ul>
-          <li><a href="/" role="button"> Go back to the main page </a></li>
+          <li><a href="/page" role="button"> Go back to the main page </a></li>
         </ul>
       </nav>
       <form method="POST" action="/tag">
         <div style="padding: 10px">
           <label
-            >Enter the tag name:
+            >Enter new value:
             <input type="text" name="name" required />
           </label>
         </div>

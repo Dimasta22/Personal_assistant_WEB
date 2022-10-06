@@ -4,15 +4,22 @@ from sqlalchemy.orm import relationship
 from src import db
 
 
-class Contact(db.Model):
-    __tablename__ = 'contacts'
+class User(db.Model):
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     nick = db.Column(db.String(30), nullable=True, unique=True)
     hash = db.Column(db.String(255), nullable=True)
+    contacts = relationship('Contact', back_populates='user')
+
+
+class Contact(db.Model):
+    __tablename__ = 'contacts'
+    id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(30), nullable=True)
     last_name = db.Column(db.String(30), nullable=True)
     birthday = db.Column(db.String(30), nullable=True)
-    # login = relationship('Login',  back_populates='login')
+    user_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
+    user = relationship('User', cascade='all, delete', back_populates='contacts')
     emails = relationship('Email', back_populates='contact')
     addresses = relationship('Address', back_populates='contact')
     phones = relationship('Phone', back_populates='contact')

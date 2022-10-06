@@ -1,58 +1,74 @@
+from sqlalchemy import and_
+
+
 from src import db
 from src import models
-import bcrypt
 
 
-def update_login_for_contact(nick, password):
-    hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt(rounds=10))
-    contact = models.Contact(nick=nick, hash=hashed)
+def get_contact(user_id, contact_id):
+    contact = db.session.query(models.Contact).filter(and_(models.Contact.id == contact_id,
+                                                           models.Contact.user_id == user_id
+                                                           )).one()
+    return contact
+
+
+def get_all_contacts(user_id):
+    contact = db.session.query(models.Contact).filter(models.Contact.user_id == user_id).all()
+    return contact
+
+
+def get_contact_id(user_id, first_name='', last_name='', birthday=''):
+    if first_name != '':
+        contact_id_ = db.session.query(models.Contact).filter(and_(models.Contact.user_id == user_id,
+                                                                  models.Contact.first_name == first_name)).one()
+    elif last_name != '':
+        contact_id_ = db.session.query(models.Contact).filter(and_(models.Contact.user_id == user_id,
+                                                                  models.Contact.last_name == last_name)).one()
+    elif birthday != '':
+        contact_id_ = db.session.query(models.Contact).filter(and_(models.Contact.user_id == user_id,
+                                                                  models.Contact.birthday == birthday)).one()
+    return contact_id_.id
+
+
+def upload_contact_for_user(user_id, first_name='', last_name='', birthday=''):
+    contact = models.Contact(user_id=user_id, first_name=first_name, last_name=last_name, birthday=birthday)
     db.session.add(contact)
     db.session.commit()
-    return contact
 
 
-def checkout_login_for_contact(nick, password):
-    contact = find_by_nick(nick)
-    if not contact:
-        return None
-    if not bcrypt.checkpw(password.encode('utf-8'), contact.hash):
-        return None
-    return contact
-
-
-def find_by_nick(nick):
-    user = db.session.query(models.Contact).filter(models.Contact.nick == nick).first()
-    return user
-
-
-def get_contact(contact_id):
-    user = db.session.query(models.Contact).filter(models.Contact.id == contact_id).first()
-    return user
-
-
-def update_first_name(contact_id, first_name):
-    user_contact = get_contact(contact_id)
+def update_first_name(user_id, contact_id, first_name=''):
+    user_contact = get_contact(user_id, contact_id)
     user_contact.first_name = first_name
     db.session.commit()
 
 
-def update_last_name(contact_id, last_name):
-    user_contact = get_contact(contact_id)
+def update_last_name(user_id, contact_id, last_name=''):
+    user_contact = get_contact(user_id, contact_id)
     user_contact.last_name = last_name
     db.session.commit()
 
 
-def update_birthday(contact_id, birthday):
-    user_contact = get_contact(contact_id)
+def update_birthday(user_id, contact_id, birthday=''):
+    user_contact = get_contact(user_id, contact_id)
     user_contact.birthday = birthday
     db.session.commit()
 
 
+def delete_contact(user_id, contact_id):
+    db.session.query(models.Contact).filter(
+        and_(models.Contact.user_id == user_id, models.Contact.id == contact_id)).delete()
+    db.session.commit()
+
+
 if __name__ == '__main__':
-    nick = 'Dimas'
-    password = '123456'
-    id = 1
-    birthday  = '22.01.2000'
-    #print(update_login_for_contact(nick, password))
+    user_id = 1
+    contact_id = 2
+    first_name = 'Dima'
+    last_name = 'Serdiuk'
+    birthday = '22.01.2000'
+    #print(upload_contact_for_user(user_id, first_name=first_name, last_name=last_name))
+    #print(get_contact(user_id, contact_id).birthday == '')
+    #print(update_first_name(user_id=user_id, contact_id=contact_id, first_name='Bohdan'))
     #print(checkout_login_for_contact(nick, password))
-    print(update_birthday(id, birthday))
+    #print(update_birthday(id, birthday))
+    print(delete_contact(1, 2))

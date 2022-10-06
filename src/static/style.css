@@ -93,3 +93,23 @@ h1 {
     align-items: center;
         padding: 10px;
 }
+
+.button-edit,
+.button-delete{
+    width: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: white;
+   color: black;
+   border: 2px solid #E9EC13;
+}
+
+.button-edit:hover,
+.button-delete:hover{
+  background-color: #1341EC;
+  color: white;
+}
+.buttons-remote{
+    margin: 10px;
+    padding: 2px;
+}
