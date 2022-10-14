@@ -22,7 +22,8 @@ def delete_email(contact_id, email_id):
 
 
 if __name__ == '__main__':
-    contact_id = 1
+    contact_id = 3
+    email_id = 3
     email = 'serdyuk0002@gmail.com'
-    print(get_contact_emails(contact_id))
+    print(delete_email(contact_id, email_id))
 
