@@ -1,8 +1,20 @@
 import sqlalchemy.exc
 from flask import render_template, request, flash, redirect, url_for, session, make_response
 import pathlib
-from . import app
+
 from src.queries import contact, emails, addresses, phones, user, notes
+from sqlalchemy import event
+from sqlalchemy.engine import Engine
+
+
+@event.listens_for(Engine, "connect")
+def set_sqlite_pragma(dbapi_connection, connection_record):
+    cursor = dbapi_connection.cursor()
+    cursor.execute("PRAGMA foreign_keys=ON")
+    cursor.close()
+
+
+from . import app
 
 
 @app.route('/healthcheck', strict_slashes=False)

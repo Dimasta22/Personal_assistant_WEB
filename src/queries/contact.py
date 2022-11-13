@@ -71,4 +71,4 @@ if __name__ == '__main__':
     #print(update_first_name(user_id=user_id, contact_id=contact_id, first_name='Bohdan'))
     #print(checkout_login_for_contact(nick, password))
     #print(update_birthday(id, birthday))
-    print(delete_contact(1, 2))
+    print(delete_contact(1, 1))
